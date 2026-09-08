@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+# keep big video file on disk, do not track in git
+assets/video/*.mp4
