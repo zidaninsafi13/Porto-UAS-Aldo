@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "@/components/ui/icons";
+import { TEACHER_DATA } from "@/data/portfolioData";
 
 interface NavbarProps {
   scrollProgress: number;
@@ -69,20 +70,19 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
     <>
       <div className="pointer-events-none fixed left-0 right-0 top-0 z-[70] h-[2px] bg-transparent">
         <motion.div
-          className="h-full origin-left bg-[#00E5FF] shadow-[0_0_10px_#00E5FF]"
+          className="h-full origin-left bg-[#B55E3B]"
           animate={{ scaleX: scrollProgress }}
           transition={{ duration: 0.12, ease: "linear" }}
         />
       </div>
 
-      <header className={`pointer-events-none fixed left-0 right-0 top-0 z-50 px-0 transition-all duration-500 ${isScrolled ? "pt-3 sm:px-4" : "pt-0"}`}>
+      <header className={`pointer-events-none fixed left-0 right-0 top-0 z-50 px-0 transition-all duration-500 ${isScrolled ? "pt-2 sm:px-4 sm:pt-3" : "pt-0"}`}>
         <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 170, damping: 24 }}
-          className={`pointer-events-auto mx-auto flex items-center justify-between transition-[max-width,border-radius,background-color,box-shadow,padding] duration-500 ${
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className={`pointer-events-auto mx-auto flex w-full items-center justify-between transition-[max-width,border-radius,background-color,box-shadow,padding] duration-500 ${
             isScrolled
-              ? "max-w-7xl rounded-2xl border border-[#36BBD3]/20 bg-[#06151A]/88 px-4 py-3 shadow-[0_16px_48px_rgba(0,0,0,.38),0_0_0_1px_rgba(255,255,255,.03)] backdrop-blur-xl sm:px-5"
-              : "max-w-none border-b border-[#36BBD3]/15 bg-[#06151A]/88 px-4 py-3 backdrop-blur-md sm:px-8 lg:px-12"
+              ? "max-w-7xl rounded-2xl border border-[#D8D1C6] bg-[#F7F3EC]/95 px-4 py-3 shadow-[0_16px_48px_rgba(28,37,44,.12)] backdrop-blur-xl sm:px-5"
+              : "max-w-none border-b border-[#D8D1C6] bg-[#F7F3EC]/95 px-4 py-3 backdrop-blur-md sm:px-8 lg:px-12"
           }`}
         >
           <a
@@ -90,19 +90,14 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
             aria-label="Kembali ke beranda"
             className="group flex shrink-0 items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF]"
           >
-            <motion.img
-              layout
-              src="assets/images/school/LogoKampus.webp"
-              alt="Logo Universitas Nusantara PGRI Kediri"
-              className={`${isScrolled ? "h-10 w-10" : "h-10 w-10"} object-contain drop-shadow-[0_2px_10px_rgba(0,210,255,.24)] transition-all duration-500`}
-            />
-            <div className="hidden h-7 w-px bg-white/15 sm:block" />
+            <img src="assets/logo-kampus/LOGO-UNP-Kediri.png" alt="Logo Universitas Nusantara PGRI Kediri" loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full border border-[#B86345]/60 bg-[#F6F0E6] object-contain p-0.5" />
+            <div className="hidden h-7 w-px bg-[#D8D1C6] sm:block" />
             <div className="flex flex-col text-left">
-              <span className="font-sans text-[11px] font-bold uppercase leading-none tracking-wider text-[#EEF4F2] sm:text-[13px]">
-                PPG Prajabatan
+              <span className="font-sans text-[11px] font-bold uppercase leading-none tracking-wider text-[#1C252C] sm:text-[13px]">
+                {TEACHER_DATA.program}
               </span>
-              <span className={`mt-0.5 font-sans text-[9px] leading-tight text-[#83969D] transition-all sm:text-[10.5px] ${isScrolled ? "max-w-0 overflow-hidden opacity-0 lg:max-w-xs lg:opacity-100" : "max-w-xs opacity-100"}`}>
-                Universitas Nusantara PGRI Kediri
+              <span className="mt-0.5 max-w-[15rem] font-sans text-[9px] leading-tight text-[#6F746B] sm:max-w-xs sm:text-[10.5px]">
+                {TEACHER_DATA.university}
               </span>
             </div>
           </a>
@@ -119,20 +114,19 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
                     setActiveSection(link.href.slice(1));
                     setMobileMenuOpen(false);
                   }}
-                    className={`group relative flex items-center gap-1.5 py-2.5 font-sans text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF] ${
-                    isActive ? "font-semibold text-[#6FE8F5]" : "text-[#EEF4F2]/72 hover:text-white"
+                    className={`group relative flex items-center gap-1.5 py-2.5 font-sans text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B55E3B] ${
+                    isActive ? "font-semibold text-[#B55E3B]" : "text-[#1C252C]/72 hover:text-[#B55E3B]"
                   }`}
                 >
-                  <span className={`font-plex text-[9px] ${isActive ? "text-[#00E5FF]" : "text-[#6F8790] group-hover:text-[#36BBD3]"}`}>
+                  <span className={`font-plex text-[9px] ${isActive ? "text-[#B55E3B]" : "text-[#6F746B] group-hover:text-[#B55E3B]"}`}>
                     {link.number}
                   </span>
                   <span>{link.label}</span>
-                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#00E5FF] via-[#36BBD3] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />
-                  <span className="absolute bottom-[-1px] left-0 h-[3px] w-[3px] -translate-x-1 rounded-full bg-[#00E5FF] opacity-0 shadow-[0_0_8px_#00E5FF] transition-all duration-500 group-hover:translate-x-[calc(100%+3.8rem)] group-hover:opacity-100" />
+                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#B55E3B] via-[#7D8B7A] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />
                   {isActive && (
                     <motion.span
                       layoutId="active-nav-line"
-                      className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#00E5FF] shadow-[0_0_9px_#00E5FF]"
+                      className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#B55E3B]"
                       transition={{ type: "spring", stiffness: 280, damping: 26 }}
                     />
                   )}
@@ -141,15 +135,15 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
             })}
           </nav>
 
-          <div className="hidden items-center gap-2 font-plex text-[9px] uppercase tracking-[0.18em] text-[#7FE8F5] lg:flex">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF]" />
-            PPL · 2026
+          <div className="hidden items-center gap-2 font-plex text-[9px] uppercase tracking-[0.18em] text-[#B55E3B] lg:flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#7D8B7A]" />
+            PPL · {TEACHER_DATA.year}
           </div>
 
           <button
             type="button"
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="rounded-lg border border-[#36BBD3]/25 bg-[#10232B] p-2 text-[#EEF4F2] transition-colors hover:border-[#36BBD3]/55 hover:text-[#00E5FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF] lg:hidden"
+            className="rounded-lg border border-[#D8D1C6] bg-[#E9DFD2] p-2 text-[#1C252C] transition-colors hover:border-[#B55E3B] hover:text-[#B55E3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B55E3B] lg:hidden"
             aria-label={mobileMenuOpen ? "Tutup navigasi" : "Buka navigasi"}
             aria-expanded={mobileMenuOpen}
           >
@@ -165,14 +159,14 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
             animate={{ opacity: 1, clipPath: "circle(145% at 92% 4%)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at 92% 4%)" }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 flex flex-col justify-between bg-[#06151A]/98 px-7 pb-9 pt-28 backdrop-blur-2xl lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-[#F7F3EC]/98 px-7 pb-9 pt-28 text-[#1C252C] backdrop-blur-2xl lg:hidden"
           >
             <div>
-              <div className="mb-6 flex items-center gap-3 border-b border-[#36BBD3]/15 pb-6">
-                <img src="assets/images/school/LogoKampus.webp" alt="" className="h-12 w-12 object-contain" />
+              <div className="mb-6 flex items-center gap-3 border-b border-[#D8D1C6] pb-6">
+                <img src="assets/logo-kampus/LOGO-UNP-Kediri.png" alt="Logo Universitas Nusantara PGRI Kediri" loading="lazy" decoding="async" className="h-12 w-12 rounded-full border border-[#B86345]/60 bg-[#F6F0E6] object-contain p-0.5" />
                 <div>
-                  <div className="font-sans text-sm font-bold uppercase tracking-wide text-[#EEF4F2]">PPG Prajabatan</div>
-                  <div className="font-plex text-[9px] uppercase tracking-widest text-[#83969D]">Universitas Nusantara PGRI Kediri</div>
+                  <div className="font-sans text-sm font-bold uppercase tracking-wide text-[#1C252C]">{TEACHER_DATA.program}</div>
+                  <div className="font-plex text-[9px] uppercase tracking-widest text-[#6F746B]">{TEACHER_DATA.university}</div>
                 </div>
               </div>
 
@@ -185,10 +179,10 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.08 + index * 0.045 }}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="group flex items-baseline justify-between border-b border-[#36BBD3]/10 py-4 text-[#EEF4F2] transition-colors hover:text-[#00E5FF]"
+                    className="group flex items-baseline justify-between border-b border-[#D8D1C6] py-4 text-[#1C252C] transition-colors hover:text-[#B55E3B]"
                   >
                     <span className="flex items-baseline gap-4">
-                      <span className="font-plex text-[10px] text-[#36BBD3]">{link.number}</span>
+                      <span className="font-plex text-[10px] text-[#B55E3B]">{link.number}</span>
                       <span className="font-sans text-lg font-semibold uppercase tracking-wider">{link.label}</span>
                     </span>
                     <span className="text-[#36BBD3] transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -197,9 +191,9 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
               </nav>
             </div>
 
-            <div className="border-t border-[#36BBD3]/15 pt-5 text-xs text-[#83969D]">
-              <div className="text-sm font-semibold text-[#EEF4F2]">Zidan Insafi, S.Pd.</div>
-              <div className="mt-1 font-plex text-[10px] text-[#36BBD3]">PJOK · SDN 1 Setonopande</div>
+            <div className="border-t border-[#D8D1C6] pt-5 text-xs text-[#6F746B]">
+              <div className="text-sm font-semibold text-[#1C252C]">{TEACHER_DATA.name}</div>
+              <div className="mt-1 font-plex text-[10px] text-[#36BBD3]">{TEACHER_DATA.field} · {TEACHER_DATA.school}</div>
             </div>
           </motion.div>
         )}

@@ -16,7 +16,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "dialog-overlay fixed inset-0 z-50 bg-[#07171D]/85 backdrop-blur-sm",
+      "dialog-overlay fixed inset-0 z-50 bg-[#1C252C]/55 backdrop-blur-sm",
       className
     )}
     {...props}
@@ -42,7 +42,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "dialog-content fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-4 border border-[rgba(219,238,241,0.16)] bg-[#07171D] p-6 shadow-2xl",
+        "dialog-content fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] gap-4 border border-[#D8D1C6] bg-[#F7F3EC] p-6 text-[#1C252C] shadow-2xl",
         className
       )}
       {...props}
@@ -54,7 +54,7 @@ const DialogContent = React.forwardRef<
       ) : null}
       {children}
       {showClose ? (
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#36BBD3] disabled:pointer-events-none text-[#EEF4F2]">
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm text-[#6F746B] opacity-70 transition-opacity hover:text-[#B55E3B] hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#B55E3B] disabled:pointer-events-none">
           <X className="h-5 w-5" />
           <span className="sr-only">Tutup</span>
         </DialogPrimitive.Close>

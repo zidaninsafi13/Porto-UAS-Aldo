@@ -1,4 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
+import { MotionConfig } from "motion/react";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { ProfileSection } from "./components/ProfileSection";
@@ -24,7 +25,6 @@ const DocumentationGalleryDialog = lazy(() =>
 );
 
 export function App() {
-  const [introComplete, setIntroComplete] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   // Practice Preview Dialog State (Dual-Scroll Split Reader)
@@ -112,10 +112,9 @@ export function App() {
   };
 
   return (
-    <>
-      {!introComplete && <IntroLoader onComplete={() => setIntroComplete(true)} />}
-
-      {introComplete && <div className="min-h-screen bg-[#06151A] text-[#EEF4F2] selection:bg-[#36BBD3]/30 selection:text-[#EEF4F2] relative overflow-x-hidden font-sans">
+    <MotionConfig reducedMotion="user">
+    <div className="editorial-theme min-h-screen bg-[#F7F3EC] text-[#1C252C] selection:bg-[#B55E3B]/20 selection:text-[#1C252C] relative overflow-x-hidden font-sans">
+      <IntroLoader />
       {/* Sticky Editorial Navigation with Reading Progress */}
       <Navbar scrollProgress={scrollProgress} />
 
@@ -126,17 +125,18 @@ export function App() {
         <PracticeSection onOpenPractice={handleOpenPractice} />
         <VideoSection />
         {/* Compact 05. Nonmengajar & 06. Penilaian Side by Side Row matching Reference */}
-        <section className="relative py-14 sm:py-20 px-6 sm:px-8 lg:px-12 bg-[#FAF8F3] text-[#132027] border-b border-[rgba(16,35,43,0.12)] overflow-hidden">
-          {/* VISUAL FOUNDATION: bg-05-06-nonmengajar-penilaian.png */}
+        <section className="relative py-14 sm:py-20 px-6 sm:px-8 lg:px-12 bg-[#F7F3EC] text-[#1C252C] border-b border-[#D8D1C6] overflow-hidden">
           <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
             <img
-              src="assets/backgrounds/bg-05-06-nonmengajar-penilaian.png"
+              src="assets/aladona/assessment-paper-texture.webp"
               alt=""
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center"
             />
           </div>
             {/* Top mask to eliminate stray baked line above the header text */}
-            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF8F3] via-[#FAF8F3]/95 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#F7F3EC] via-[#F7F3EC]/95 to-transparent pointer-events-none" />
 
 
           <div className="max-w-7xl mx-auto relative z-10">
@@ -180,8 +180,8 @@ export function App() {
         initialActivityId={documentationDialog.activityId}
       />
       </Suspense>
-    </div>}
-    </>
+    </div>
+    </MotionConfig>
   );
 }
 

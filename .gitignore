@@ -2,5 +2,21 @@ node_modules/
 dist/
 .DS_Store
 *.local
-# keep big video file on disk, do not track in git
-assets/video/*.mp4
+# keep an optional personal video file off git when supplied
+public/assets/aladona/video/*.mp4
+
+# Local browser/build diagnostics (never publish these)
+build_log.txt
+preview_log.txt
+console.log
+live_console.log
+render.html
+live_render.html
+
+# Ad-hoc local browser harnesses
+check.js
+check_live.cjs
+parse.js
+check_live.bat
+run_check.bat
+run_chrome.bat

@@ -9,34 +9,19 @@ interface PhotoLightboxProps {
   title: string;
 }
 
-export const PhotoLightbox: React.FC<PhotoLightboxProps> = ({
-  isOpen,
-  onClose,
-  imageUrl,
-  caption,
-  title
-}) => {
+export const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ isOpen, onClose, imageUrl, caption, title }) => {
+  const safeImageUrl = imageUrl || "assets/aladona/activities-paper-texture.webp";
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent
-        srTitle={`Dokumentasi foto — ${title}`}
-        className="max-w-[1000px] w-[92vw] p-0 bg-[#07171D] border border-[rgba(219,238,241,0.2)] rounded-lg overflow-hidden shadow-2xl"
-      >
+      <DialogContent srTitle={`Pratinjau visual — ${title}`} className="w-[92vw] max-w-[1000px] overflow-hidden rounded-lg border border-[#D8D1C6] bg-[#F7F3EC] p-0 shadow-2xl">
         <div className="relative flex flex-col">
-          <div className="bg-[#050E12] flex items-center justify-center p-2 sm:p-4 max-h-[75vh] overflow-hidden">
-            <img
-              src={imageUrl}
-              alt={title}
-              className="max-h-[70vh] w-auto max-w-full object-contain rounded"
-            />
+          <div className="flex max-h-[75vh] items-center justify-center overflow-hidden bg-[#1C252C] p-2 sm:p-4">
+            <img src={safeImageUrl} alt={title} loading="lazy" decoding="async" className="max-h-[70vh] w-auto max-w-full object-contain" />
           </div>
-          <div className="p-5 bg-[#10232B] border-t border-[rgba(219,238,241,0.12)]">
-            <span className="text-[10px] font-mono tracking-widest text-[#36BBD3] uppercase block mb-1">
-              DOKUMENTASI OTENTIK · {title}
-            </span>
-            <p className="text-xs sm:text-sm text-[#EEF4F2] leading-relaxed">
-              {caption}
-            </p>
+          <div className="border-t border-[#D8D1C6] bg-[#F7F3EC] p-5">
+            <span className="mb-1 block font-mono text-[10px] uppercase tracking-widest text-[#B55E3B]">Catatan visual · {title}</span>
+            <p className="text-xs leading-relaxed text-[#6F746B] sm:text-sm">{caption}</p>
           </div>
         </div>
       </DialogContent>

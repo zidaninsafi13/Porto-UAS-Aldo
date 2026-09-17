@@ -13,6 +13,7 @@ const AlbumPhoto = ({ activity, featured = false, index, onOpen }: { activity: N
     whileInView={{ y: 0, rotate: featured ? -0.4 : index % 2 ? 0.7 : -0.7 }}
     viewport={{ once: false, amount: 0.22 }}
     whileHover={{ y: -6, rotate: 0, scale: 1.012 }}
+    whileTap={{ scale: 0.985 }}
     transition={{ duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
     onClick={onOpen}
     className={`group relative block w-full overflow-hidden rounded-[5px] border border-[#D5DEE0] bg-[#FFFDF9] p-2 text-left shadow-[0_12px_25px_rgba(19,32,39,.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0288D1] focus-visible:ring-offset-2 ${featured ? "h-[360px] sm:h-[382px]" : "h-[172px] sm:h-[181px]"}`}
@@ -20,19 +21,12 @@ const AlbumPhoto = ({ activity, featured = false, index, onOpen }: { activity: N
     aria-label={`Buka dokumentasi ${activity.title}`}
   >
     <div className="relative h-full overflow-hidden rounded-[2px] bg-[#10232B]">
-      <img
-        src={activity.image}
-        alt={activity.imageAlt ?? activity.title}
-        loading="lazy"
-        decoding="async"
-        style={{ objectPosition: activity.id === "act-03" ? "center bottom" : featured ? "center 68%" : "center 72%" }}
-        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06] ${activity.id === "act-03" ? "scale-[1.1] origin-bottom" : ""}`}
-      />
+      {activity.image ? <img src={activity.image} alt={activity.imageAlt ?? activity.title} loading="lazy" decoding="async" style={{ objectPosition: activity.id === "act-02" ? "center 112%" : featured ? "center 80%" : "center 92%" }} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]" /> : <div className="absolute inset-0 flex items-center justify-center bg-[#1c252c]/85 bg-cover bg-center p-6 text-center font-plex text-[10px] uppercase tracking-[0.16em] text-[#d8d1c6]" style={{ backgroundImage: "url('assets/aladona/activities-paper-texture.webp')" }}>Foto kegiatan<br />menunggu aset</div>}
       <div className="absolute inset-0 bg-gradient-to-t from-[#031017]/55 via-transparent to-[#031017]/10" />
       {featured && (
         <div className="pointer-events-none absolute left-5 top-14 -rotate-6 text-white drop-shadow-[0_3px_12px_rgba(0,0,0,.85)] sm:left-7 sm:top-16">
           <span className="block font-handwriting text-2xl font-bold leading-[1.05] sm:text-3xl">
-            Senam Pagi<br />Jaga Semangat<br />Bersama
+            {activity.title}
           </span>
           <span className="mt-2 block h-px w-20 bg-white/80" />
         </div>
@@ -73,10 +67,10 @@ export const NonTeachingSection: React.FC<NonTeachingProps> = ({ onOpenGallery }
         <div className="relative z-10 sm:col-span-7"><AlbumPhoto activity={featured} featured index={0} onOpen={() => onOpenGallery(featured.id)} /></div>
         <div className="relative z-10 flex flex-col gap-4 sm:col-span-5 sm:pt-5">{secondary.map((activity, index) => <AlbumPhoto key={activity.id} activity={activity} index={index + 1} onOpen={() => onOpenGallery(activity.id)} />)}</div>
       </div>
-      <div className="flex flex-wrap items-center gap-4 pt-1">
-        <button type="button" onClick={() => onOpenGallery(featured.id)} className="button-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#00D7EA] px-5 py-3 font-sans text-xs font-bold text-[#041217] shadow-[0_10px_30px_rgba(0,183,211,.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0288D1] focus-visible:ring-offset-2 sm:text-sm"><span className="relative z-10">Lihat Galeri Dokumentasi</span><ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" /></button>
+      <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.45 }} className="flex flex-wrap items-center gap-4 pt-1">
+        <motion.button type="button" onClick={() => onOpenGallery(featured.id)} whileHover={{ x: 4 }} whileTap={{ scale: 0.985 }} className="button-sweep group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-[#00D7EA] px-5 py-3 font-sans text-xs font-bold text-[#041217] shadow-[0_10px_30px_rgba(0,183,211,.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0288D1] focus-visible:ring-offset-2 sm:text-sm"><span className="relative z-10">Lihat Galeri Dokumentasi</span><ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" /></motion.button>
         <div className="flex items-center gap-2 font-plex text-[9px] uppercase tracking-[0.16em] text-[#132027]/55"><Runner className="h-4 w-4 text-[#0288D1]" />Album kegiatan · pembelajaran bermakna</div>
-      </div>
+      </motion.div>
     </div>
   );
 };

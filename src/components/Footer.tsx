@@ -8,31 +8,32 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative py-8 px-6 sm:px-8 lg:px-12 bg-[#040C0F] text-[#83969D] border-t border-[rgba(219,238,241,0.08)] font-plex text-xs">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer className="relative border-t border-[#D8D1C6] bg-[#E9DFD2] px-6 py-8 font-plex text-xs text-[#6F746B] sm:px-8 lg:px-12">
+      <div className="footer-inner mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
         {/* Left: Metadata lockup */}
-        <div className="flex flex-wrap items-center gap-2 text-center md:text-left">
-          <span className="font-sans font-bold text-[#EEF4F2]">{TEACHER_DATA.name}</span>
+        <div className="footer-meta flex flex-wrap items-center gap-2 text-center md:text-left">
+          <img src="assets/logo-kampus/LOGO-UNP-Kediri.png" alt="Logo Universitas Nusantara PGRI Kediri" loading="lazy" decoding="async" className="h-8 w-8 object-contain" />
+          <span className="font-sans font-bold text-[#1C252C]">{TEACHER_DATA.name}</span>
           <span className="text-[#36BBD3]">•</span>
           <span>E-Portfolio PPL</span>
           <span className="text-[#36BBD3]">•</span>
-          <span>PPG Prajabatan 2026</span>
+          <span>{TEACHER_DATA.program} · {TEACHER_DATA.year}</span>
         </div>
 
         {/* Center: Motto */}
-        <div className="font-handwriting text-xl text-[#83969D]">
+        <div className="footer-motto font-handwriting text-xl text-[#7D8B7A]">
           Terus bergerak, terus belajar.
         </div>
 
         {/* Right: Scroll to Top button */}
-        <div className="flex items-center gap-2">
+        <div className="footer-action flex items-center gap-2">
           <button
             type="button"
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 text-[#EEF4F2] hover:text-[#36BBD3] transition-colors font-sans text-xs font-medium cursor-pointer"
+            className="inline-flex items-center gap-1.5 font-sans text-xs font-medium text-[#1C252C] transition-colors hover:text-[#B55E3B]"
           >
             <span>Kembali ke Atas</span>
-            <ArrowUp className="w-3.5 h-3.5 text-[#36BBD3]" />
+            <ArrowUp className="w-3.5 h-3.5 text-[#B55E3B]" />
           </button>
         </div>
       </div>

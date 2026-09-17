@@ -1,23 +1,15 @@
-# E-Portfolio PPL - Zidan Insafi, S.Pd.
+# E-Portfolio PPL — Aladona Khairulloh Ibrahim
 
-Website one-page E-Portfolio Praktik Pengalaman Lapangan (PPL) PPG Prajabatan bidang Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK) di SDN 1 Setonopande, Universitas Nusantara PGRI Kediri.
-
-## Konsep
-
-- Format: static one-page academic portfolio
-- Gaya: academic editorial, personal, sinematik, dan tetap berorientasi pada penilaian
-- Konten: profil, dua praktik mengajar, analisis video, dokumentasi nonmengajar, instrumen penilaian, dan refleksi
-- Interaksi: opening loader, floating navbar, reveal motion, modal galeri, preview modul PDF, lightbox, dan video Google Drive/HTML5
+Portfolio akademik satu halaman untuk mendokumentasikan praktik, asesmen, kegiatan, dan refleksi Aladona Khairulloh Ibrahim.
 
 ## Teknologi
 
-- React 19 dan TypeScript
-- Vite
+- React 19, TypeScript, Vite
 - Tailwind CSS 4
-- Motion
-- Radix UI Dialog
+- Motion dan Radix Dialog untuk interaksi yang diperlukan
+- GitHub Pages melalui workflow di `.github/workflows/deploy.yml`
 
-## Menjalankan secara lokal
+## Menjalankan lokal
 
 ```bash
 npm install
@@ -31,31 +23,14 @@ npm run build
 npm run preview
 ```
 
-## Struktur penting
+## Mengisi konten Aladona
 
-```text
-src/
-|- components/       Komponen halaman, opening, galeri, dan dialog
-|- data/             Konten portofolio sebagai sumber data utama
-|- lib/              Utilitas bersama
-`- types/            Tipe data TypeScript
+Konten utama berada di `src/data/teacher.ts`, `src/data/practices.ts`, `src/data/videoAnalysis.ts`, dan `src/data/activities.ts`. Isi hanya dari dokumen dan dokumentasi asli Aladona. Konten yang belum tersedia ditampilkan sebagai placeholder agar tidak terjadi klaim palsu.
 
-public/assets/
-|- backgrounds/      Latar visual tiap section dan opening
-|- covers/           Render sampul modul terbaru
-|- documents/        Dokumen PDF yang dipratinjau di website
-|- images/           Logo, foto profil, dan dokumentasi kegiatan
-`- video/            Opsional jika memakai file video lokal
-```
+Asset Aladona yang dipakai aplikasi berada di `public/assets/profile/`, `public/assets/cover/`, `public/assets/document/`, `public/assets/praktek-non-mengajar/`, dan `public/assets/logo-kampus/`. Path-nya sudah dihubungkan ke data terpusat; tambahkan file baru di folder tersebut bila diperlukan.
 
-## Video
+Foto yang menampilkan peserta didik hanya ditampilkan sebagai dokumentasi yang diberikan pengguna. Pastikan izin publikasi sudah dimiliki sebelum deployment.
 
-Video asli disimpan di `assets/video/` dan diabaikan Git karena ukurannya besar. Untuk publikasi, isi `VIDEO_SOURCE_URL` di `src/data/videoAnalysis.ts` dengan tautan Google Drive atau URL video langsung. Tautan Google Drive berbentuk `/file/d/.../view` otomatis diubah menjadi mode preview.
+## Catatan video dan PDF
 
-## Modul ajar
-
-Preview praktik membaca file terbaru `modul-1.pdf` dan `modul-2.pdf` dari folder `assets/documents/`. Sampul preview dirender dari halaman pertama dokumen, sedangkan panel analisis disesuaikan dengan isi modul aktual: 9 halaman untuk Modul 1 dan 18 halaman untuk Modul 2.
-
-## Dokumentasi nonmengajar
-
-Foto senam pagi dan pendampingan lomba atletik memakai aset lokal dari `assets/images/nonmengajar/`. Foto Upacara Hari Pramuka ditandai sebagai referensi sementara dan memiliki atribusi sumber di dalam galeri. Ganti aset tersebut dengan dokumentasi asli saat sudah tersedia.
+`VIDEO_SOURCE_URL` menerima URL video langsung atau tautan Google Drive. Timestamp hanya dapat melakukan seek pada elemen video langsung; tautan Drive menggunakan mode embed tanpa seek. PDF modul dan instrumen penilaian tersedia melalui modal terkait.
