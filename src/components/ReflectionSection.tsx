@@ -5,12 +5,12 @@ import { REFLECTIONS, REFLECTION_DETAILS, TEACHER_DATA } from "@/data/portfolioD
 export const ReflectionSection: React.FC = () => (
   <section id="refleksi" className="relative overflow-hidden border-b border-[#D8D1C6] bg-[#F7F3EC] px-6 py-20 text-[#1C252C] sm:px-12 sm:py-28 lg:px-20">
     <img src="assets/aladona/reflection-paper-texture.webp" alt="" loading="lazy" decoding="async" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-45 mix-blend-multiply" />
-    <div className="pointer-events-none absolute -right-8 top-10 select-none font-serif text-[clamp(10rem,24vw,20rem)] leading-none tracking-[-0.08em] text-[#1C252C]/[0.035]" aria-hidden="true">07</div>
+    <div className="pointer-events-none absolute -right-8 top-10 select-none font-serif text-[clamp(10rem,24vw,20rem)] leading-none tracking-[-0.08em] text-[#1C252C]/[0.035]" aria-hidden="true">08</div>
 
     <div className="relative z-10 mx-auto max-w-6xl">
       <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end lg:gap-16">
         <motion.div initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.25 }} transition={{ duration: 0.6 }}>
-          <span className="font-mono text-xs uppercase tracking-[0.22em] text-[#B55E3B]">07 / Refleksi</span>
+          <span className="font-mono text-xs uppercase tracking-[0.22em] text-[#B55E3B]">08 / Refleksi akhir</span>
           <h2 className="mt-4 max-w-xl font-serif text-5xl leading-[0.98] tracking-[-0.03em] sm:text-7xl">Refleksi terhadap<br /><span className="italic text-[#B55E3B]">model guru yang dituju.</span></h2>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-[#6F746B]">{TEACHER_DATA.reflectionLead}</p>
         </motion.div>
@@ -34,7 +34,7 @@ export const ReflectionSection: React.FC = () => (
 
       <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.55 }} className="mt-16 border-t border-[#D8D1C6] pt-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <div><span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#B55E3B]">Evaluasi diri / 07</span><h3 className="mt-2 font-serif text-3xl sm:text-4xl">Kekuatan, tantangan, dan langkah berikutnya.</h3></div>
+          <div><span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#B55E3B]">Evaluasi diri / 08</span><h3 className="mt-2 font-serif text-3xl sm:text-4xl">Kekuatan, tantangan, dan langkah berikutnya.</h3></div>
           <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#6F746B]">Aladona Khairulloh Ibrahim</span>
         </div>
 

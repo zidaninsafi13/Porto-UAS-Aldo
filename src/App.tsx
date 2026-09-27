@@ -8,6 +8,7 @@ import { VideoSection } from "./components/VideoSection";
 import { NonTeachingSection } from "./components/NonTeachingSection";
 import { AssessmentSection } from "./components/AssessmentSection";
 import { ReflectionSection } from "./components/ReflectionSection";
+import { PracticeReflectionSection } from "./components/PracticeReflectionSection";
 import { Footer } from "./components/Footer";
 import { IntroLoader } from "./components/IntroLoader";
 
@@ -22,6 +23,9 @@ const PhotoLightbox = lazy(() =>
 );
 const DocumentationGalleryDialog = lazy(() =>
   import("./components/DocumentationGalleryDialog").then((module) => ({ default: module.DocumentationGalleryDialog })),
+);
+const PracticeReflectionPreviewDialog = lazy(() =>
+  import("./components/PracticeReflectionPreviewDialog").then((module) => ({ default: module.PracticeReflectionPreviewDialog })),
 );
 
 export function App() {
@@ -43,6 +47,11 @@ export function App() {
   }>({
     isOpen: false,
     docId: "penilaian-1",
+  });
+
+  const [reflectionDialog, setReflectionDialog] = useState({
+    isOpen: false,
+    reflectionId: "refleksi-01",
   });
 
   // Photo Lightbox State
@@ -88,6 +97,14 @@ export function App() {
 
   const handleCloseAssessment = () => {
     setAssessmentDialog((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  const handleOpenReflection = (reflectionId: string) => {
+    setReflectionDialog({ isOpen: true, reflectionId });
+  };
+
+  const handleCloseReflection = () => {
+    setReflectionDialog((prev) => ({ ...prev, isOpen: false }));
   };
 
   const handleOpenPhoto = (imageUrl: string, title: string, caption: string) => {
@@ -146,6 +163,7 @@ export function App() {
             </div>
           </div>
         </section>
+        <PracticeReflectionSection onOpenReflection={handleOpenReflection} />
         <ReflectionSection />
       </main>
 
@@ -178,6 +196,12 @@ export function App() {
         isOpen={documentationDialog.isOpen}
         onClose={handleCloseDocumentation}
         initialActivityId={documentationDialog.activityId}
+      />
+
+      <PracticeReflectionPreviewDialog
+        isOpen={reflectionDialog.isOpen}
+        onClose={handleCloseReflection}
+        reflectionId={reflectionDialog.reflectionId}
       />
       </Suspense>
     </div>

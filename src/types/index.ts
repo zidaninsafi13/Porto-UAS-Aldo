@@ -37,6 +37,19 @@ export interface PracticeItem {
   analysis: PracticeAnalysis;
 }
 
+export interface PracticeReflection {
+  id: string;
+  number: string;
+  title: string;
+  date: string;
+  focus: string;
+  summary: string;
+  feedback: string;
+  nextStep: string;
+  pdfUrl: string;
+  coverUrl: string;
+}
+
 export interface AssessmentCriterion {
   aspect: string;
   expert: string; // Mahir

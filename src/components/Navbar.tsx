@@ -7,14 +7,16 @@ interface NavbarProps {
   scrollProgress: number;
 }
 
-const NAV_LINKS = [
+type NavLink = { href: string; number: string; label: string; children?: Array<{ href: string; label: string }> };
+
+const NAV_LINKS: NavLink[] = [
   { href: "#beranda", number: "01", label: "Home" },
   { href: "#profil", number: "02", label: "Profil" },
   { href: "#praktik", number: "03", label: "Praktik" },
   { href: "#video", number: "04", label: "Video" },
   { href: "#nonmengajar", number: "05", label: "Nonmengajar" },
   { href: "#penilaian", number: "06", label: "Penilaian" },
-  { href: "#refleksi", number: "07", label: "Refleksi" },
+  { href: "#refleksi-praktik", number: "07", label: "Refleksi", children: [{ href: "#refleksi-praktik", label: "Refleksi praktik" }, { href: "#refleksi", label: "Refleksi akhir" }] },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
@@ -27,7 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
       setIsScrolled(window.scrollY > 72);
       const marker = window.scrollY + Math.min(240, Math.max(140, window.innerHeight * 0.32));
 
-      const visibleSections = NAV_LINKS.map((link) => {
+      const sectionLinks = NAV_LINKS.flatMap((link) => link.children ?? [{ href: link.href, label: link.label }]);
+      const visibleSections = sectionLinks.map((link) => {
         const id = link.href.slice(1);
         const element = document.getElementById(id);
         return {
@@ -104,34 +107,10 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
 
           <nav className="hidden items-center gap-5 lg:flex xl:gap-7" aria-label="Navigasi utama">
             {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  aria-current={isActive ? "location" : undefined}
-                  onClick={() => {
-                    setActiveSection(link.href.slice(1));
-                    setMobileMenuOpen(false);
-                  }}
-                    className={`group relative flex items-center gap-1.5 py-2.5 font-sans text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B55E3B] ${
-                    isActive ? "font-semibold text-[#B55E3B]" : "text-[#1C252C]/72 hover:text-[#B55E3B]"
-                  }`}
-                >
-                  <span className={`font-plex text-[9px] ${isActive ? "text-[#B55E3B]" : "text-[#6F746B] group-hover:text-[#B55E3B]"}`}>
-                    {link.number}
-                  </span>
-                  <span>{link.label}</span>
-                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#B55E3B] via-[#7D8B7A] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />
-                  {isActive && (
-                    <motion.span
-                      layoutId="active-nav-line"
-                      className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#B55E3B]"
-                      transition={{ type: "spring", stiffness: 280, damping: 26 }}
-                    />
-                  )}
-                </a>
-              );
+              const childLinks = link.children ?? [];
+              const isActive = activeSection === link.href.slice(1) || childLinks.some((child) => activeSection === child.href.slice(1));
+              if (!childLinks.length) return <a key={link.href} href={link.href} aria-current={isActive ? "location" : undefined} onClick={() => setActiveSection(link.href.slice(1))} className={`group relative flex items-center gap-1.5 py-2.5 font-sans text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B55E3B] ${isActive ? "font-semibold text-[#B55E3B]" : "text-[#1C252C]/72 hover:text-[#B55E3B]"}`}><span className={`font-plex text-[9px] ${isActive ? "text-[#B55E3B]" : "text-[#6F746B] group-hover:text-[#B55E3B]"}`}>{link.number}</span><span>{link.label}</span><span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-[#B55E3B] via-[#7D8B7A] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100" />{isActive && <motion.span layoutId="active-nav-line" className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#B55E3B]" transition={{ type: "spring", stiffness: 280, damping: 26 }} />}</a>;
+              return <div key={link.href} className="group relative"><button type="button" className={`relative flex items-center gap-1.5 py-2.5 font-sans text-[13px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B55E3B] ${isActive ? "font-semibold text-[#B55E3B]" : "text-[#1C252C]/72 hover:text-[#B55E3B]"}`}><span className={`font-plex text-[9px] ${isActive ? "text-[#B55E3B]" : "text-[#6F746B] group-hover:text-[#B55E3B]"}`}>{link.number}</span><span>{link.label}</span><span className="text-[11px]">⌄</span>{isActive && <motion.span layoutId="active-nav-line" className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#B55E3B]" transition={{ type: "spring", stiffness: 280, damping: 26 }} />}</button><div className="invisible absolute right-0 top-full z-20 mt-2 w-48 translate-y-1 border border-[#D8D1C6] bg-[#F7F3EC] p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">{childLinks.map((child) => <a key={child.href} href={child.href} onClick={() => setActiveSection(child.href.slice(1))} className={`block px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.1em] transition hover:bg-[#E9DFD2] hover:text-[#B55E3B] ${activeSection === child.href.slice(1) ? "text-[#B55E3B]" : "text-[#6F746B]"}`}>{child.label}</a>)}</div></div>;
             })}
           </nav>
 
@@ -171,23 +150,11 @@ export const Navbar: React.FC<NavbarProps> = ({ scrollProgress }) => {
               </div>
 
               <nav className="flex flex-col" aria-label="Navigasi mobile">
-                {NAV_LINKS.map((link, index) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.08 + index * 0.045 }}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="group flex items-baseline justify-between border-b border-[#D8D1C6] py-4 text-[#1C252C] transition-colors hover:text-[#B55E3B]"
-                  >
-                    <span className="flex items-baseline gap-4">
-                      <span className="font-plex text-[10px] text-[#B55E3B]">{link.number}</span>
-                      <span className="font-sans text-lg font-semibold uppercase tracking-wider">{link.label}</span>
-                    </span>
-                    <span className="text-[#36BBD3] transition-transform duration-300 group-hover:translate-x-1">→</span>
-                  </motion.a>
-                ))}
+                {NAV_LINKS.map((link, index) => {
+                  const childLinks = link.children ?? [];
+                  if (!childLinks.length) return <motion.a key={link.href} href={link.href} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 + index * 0.045 }} onClick={() => setMobileMenuOpen(false)} className="group flex items-baseline justify-between border-b border-[#D8D1C6] py-4 text-[#1C252C] transition-colors hover:text-[#B55E3B]"><span className="flex items-baseline gap-4"><span className="font-plex text-[10px] text-[#B55E3B]">{link.number}</span><span className="font-sans text-lg font-semibold uppercase tracking-wider">{link.label}</span></span><span className="text-[#B55E3B] transition-transform duration-300 group-hover:translate-x-1">→</span></motion.a>;
+                  return <motion.div key={link.href} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 + index * 0.045 }} className="border-b border-[#D8D1C6] py-4"><div className="flex items-baseline gap-4"><span className="font-plex text-[10px] text-[#B55E3B]">{link.number}</span><span className="font-sans text-lg font-semibold uppercase tracking-wider">{link.label}</span></div><div className="mt-3 space-y-1 pl-8">{childLinks.map((child) => <a key={child.href} href={child.href} onClick={() => setMobileMenuOpen(false)} className="group flex items-center justify-between py-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#6F746B] transition-colors hover:text-[#B55E3B]"><span>{child.label}</span><span className="text-[#B55E3B] transition-transform duration-300 group-hover:translate-x-1">→</span></a>)}</div></motion.div>;
+                })}
               </nav>
             </div>
 
